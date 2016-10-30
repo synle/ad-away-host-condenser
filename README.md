@@ -3,6 +3,8 @@ Condense ad away host files to whitelist domains. In this case whitelist links f
 
 ##use this host for AdAway in android
 `http://adaway.herokuapp.com/hosts`
+or 
+`http://adaway.herokuapp.com/h`
 
 
 ##config
