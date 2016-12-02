@@ -9,6 +9,19 @@ var fs = require('fs');
 var DEST_ROUTE = '0.0.0.0\t';
 
 
+//white list
+var whiteList = require('./config/white.list.json');
+// self.whiteList = whiteList;
+var whiteListFromEnv = process.env.WHITE_LIST || '';
+if(whiteListFromEnv.length > 0){
+	whiteListFromEnv = whiteListFromEnv.split(',');
+	console.log(whiteListFromEnv);
+	whiteList = whiteListFromEnv.concat( whiteList);
+}
+
+console.log('whiteList', whiteList);
+
+
 //def
 var self = {};
 self.hostString = '';
@@ -26,19 +39,6 @@ self.refresh = function(){
 	var blackList = require('./config/black.list.json');
 	// self.blackList = blackList;
 	console.log('blackList', blackList);
-
-
-	//white list
-	var whiteList = require('./config/white.list.json');
-	// self.whiteList = whiteList;
-	var whiteListFromEnv = process.env.WHITE_LIST || '';
-	if(whiteListFromEnv.length > 0){
-		whiteListFromEnv = whiteListFromEnv.split(',');
-		console.log(whiteListFromEnv);
-		whiteList = whiteListFromEnv.concat( whiteList);
-	}
-
-	console.log('whiteList', whiteList);
 
 	var promises = [];
 	var resultHosts = {};
@@ -71,7 +71,7 @@ self.refresh = function(){
 								}
 							});
 
-							curDefer.resolve();	
+							curDefer.resolve();
 						} catch(ex){
 							console.log('Error Parsing', curBlackListEntry, ex)
 						}
