@@ -17,7 +17,7 @@ config/white.list.json
 ### Sample script to register blocked sites
 #### Netgear Nighthawk(R) X4S R7800
 ```
-fetch('http://adaway.herokuapp.com/h').then(r => r.text()).then(_doWork);
+fetch('http://adaway.herokuapp.com/h').then(r => r.text()).then(_registerBlockSiteWithNetGear);
 
 function _registerBlockSiteWithNetGear(hosts){
     const exiting_hosts = [...document.querySelectorAll('#keyword_domainlist option')]
@@ -30,6 +30,9 @@ function _registerBlockSiteWithNetGear(hosts){
             } catch(e){
                 return '';
             }
+        })
+        .fiter(h => {
+            return !!h && h.split('.').length < 3;
         });
 
     const all_hosts = Object.keys(
@@ -39,6 +42,8 @@ function _registerBlockSiteWithNetGear(hosts){
                 return res;
             }, {})
     );
+
+    console.log('new_hosts', new_hosts.length);
 
     document.querySelector('#keyword_domainlist').innerHTML = all_hosts.map(
         h => {
