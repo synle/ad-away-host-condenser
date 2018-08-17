@@ -20,6 +20,8 @@ router.get('/refresh', function(req, res, next) {
 });
 
 function serveHost(req, res, next){
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 	res.send( condense.hostString );
 }
 module.exports = router;
